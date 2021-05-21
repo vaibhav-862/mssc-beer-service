@@ -54,7 +54,7 @@ public class BeerServiceImpl implements BeerService {
     @Cacheable(cacheNames = "beerListCache", condition = "#showInventoryOnHand == false")
     @Override
     public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand) {
-        System.out.println("I was called");
+
         BeerPagedList beerPagedList;
         Page<Beer> beerPage;
 
