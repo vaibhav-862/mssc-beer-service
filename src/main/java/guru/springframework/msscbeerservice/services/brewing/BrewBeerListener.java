@@ -12,6 +12,8 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -20,6 +22,10 @@ public class BrewBeerListener {
     private final BeerRepository beerRepository;
     private final JmsTemplate jmsTemplate;
 
+    //Transactional anno fixes below exception at startup
+    //org.springframework.jms.listener.adapter.ListenerExecutionFailedException: Listener method 'public void guru.springframework.msscbeerservice.services.brewing.BrewBeerListener.listen(guru.springframework.msscbeerservice.events.BrewBeerEvent)' threw exception; nested exception is org.hibernate.LazyInitializationException: could not initialize proxy [guru.springframework.msscbeerservice.domain.Beer#f17a77be-2829-443c-875a-48e9089c7c6c] - no Session
+    //Caused by: org.hibernate.LazyInitializationException: could not initialize proxy [guru.springframework.msscbeerservice.domain.Beer#c208e05f-a380-4dd7-a2b1-66502126f6fe] - no Session
+    @Transactional
     @JmsListener(destination = JmsConfig.BREWING_REQUEST_QUEUE)
     public void listen(BrewBeerEvent event) {
         BeerDto beerDto = event.getBeerDto();
