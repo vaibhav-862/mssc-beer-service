@@ -12,6 +12,8 @@ public class JmsConfig {
 
     public static final String BREWING_REQUEST_QUEUE = "brewing-request";
     public static final String NEW_INVENTORY_QUEUE = "new-inventory";
+    public static final String VALIDATE_ORDER_QUEUE = "validate-order";
+    public static final String VALIDATE_ORDER_RESPONSE_QUEUE = "validate-order-response";
 
     //passing ObjectMapper as argument and setting it into the converter forces to inject SpringBoot managed jackson instance and avoids below error at startup
     //Caused by: org.springframework.jms.support.converter.MessageConversionException: Failed to convert JSON message content; nested exception is com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Cannot construct instance of `guru.sfg.brewery.model.events.BrewBeerEvent` (no Creators, like default construct, exist): cannot deserialize from Object value (no delegate- or property-based Creator)
