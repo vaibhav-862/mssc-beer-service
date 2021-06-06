@@ -2,10 +2,10 @@ package guru.springframework.msscbeerservice.services.brewing;
 
 import guru.springframework.msscbeerservice.config.JmsConfig;
 import guru.springframework.msscbeerservice.domain.Beer;
-import guru.sfg.common.events.BrewBeerEvent;
-import guru.sfg.common.events.NewInventoryEvent;
+import guru.sfg.brewery.model.events.BrewBeerEvent;
+import guru.sfg.brewery.model.events.NewInventoryEvent;
 import guru.springframework.msscbeerservice.repositories.BeerRepository;
-import guru.springframework.msscbeerservice.web.model.BeerDto;
+import guru.sfg.brewery.model.BeerDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
@@ -23,7 +23,7 @@ public class BrewBeerListener {
     private final JmsTemplate jmsTemplate;
 
     //Transactional anno fixes below exception at startup
-    //org.springframework.jms.listener.adapter.ListenerExecutionFailedException: Listener method 'public void guru.springframework.msscbeerservice.services.brewing.BrewBeerListener.listen(guru.sfg.common.events.BrewBeerEvent)' threw exception; nested exception is org.hibernate.LazyInitializationException: could not initialize proxy [guru.springframework.msscbeerservice.domain.Beer#f17a77be-2829-443c-875a-48e9089c7c6c] - no Session
+    //org.springframework.jms.listener.adapter.ListenerExecutionFailedException: Listener method 'public void guru.springframework.msscbeerservice.services.brewing.BrewBeerListener.listen(guru.sfg.brewery.model.events.BrewBeerEvent)' threw exception; nested exception is org.hibernate.LazyInitializationException: could not initialize proxy [guru.springframework.msscbeerservice.domain.Beer#f17a77be-2829-443c-875a-48e9089c7c6c] - no Session
     //Caused by: org.hibernate.LazyInitializationException: could not initialize proxy [guru.springframework.msscbeerservice.domain.Beer#c208e05f-a380-4dd7-a2b1-66502126f6fe] - no Session
     @Transactional
     @JmsListener(destination = JmsConfig.BREWING_REQUEST_QUEUE)
